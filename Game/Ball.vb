@@ -1,8 +1,8 @@
 ﻿Public Class Ball
 
     Public Shared Size As Integer = 10
-    Public FrictionCoefficient As Single = 0.95
-    Public Mass As Single = 2
+    Public Shared FrictionCoefficient As Single = 0.95
+    Public Shared Mass As Single = 4
     Public x, y As Integer
     Public dx, dy As Single
 

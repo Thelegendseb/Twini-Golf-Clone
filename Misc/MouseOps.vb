@@ -7,11 +7,11 @@
         StartPos = Nothing
         EndPos = Nothing
     End Sub
-    Public Sub Clicked(e As MouseEventArgs)
-        StartPos = New Point(e.X, e.Y)
+    Public Sub Clicked()
+        StartPos = New Point(Cursor.Current.Position.X, Cursor.Current.Position.Y)
     End Sub
-    Public Sub Lifted(e As MouseEventArgs)
-        EndPos = New Point(e.X, e.Y)
+    Public Sub Lifted()
+        EndPos = New Point(Cursor.Current.Position.X, Cursor.Current.Position.Y)
     End Sub
 
 End Class

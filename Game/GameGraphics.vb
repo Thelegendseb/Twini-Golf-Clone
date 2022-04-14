@@ -70,4 +70,24 @@
         End Using
     End Sub
 
+    Public Shared Sub DrawPowerBar(ByRef bmp As Bitmap, PowerVal As Integer)
+        If PowerVal > 255 Then PowerVal = 255
+        Dim custbrush As New SolidBrush(Color.FromArgb(255, 255 - PowerVal, 0))
+        If PowerVal > 150 Then PowerVal = 150
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.FillRectangle(New SolidBrush(Color.FromArgb(150, 0, 0, 0)), 25, 0, 200, 30)
+
+            g.FillRectangle(custbrush, 50, 10, PowerVal, 10)
+
+        End Using
+
+    End Sub
+    Public Shared Sub DrawStrokeCount(ByRef bmp As Bitmap, num As Integer)
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.FillRectangle(New SolidBrush(Color.FromArgb(150, 0, 0, 0)), 390, 0, 130, 30)
+            g.DrawString("STROKES: " & num, New Font("Impact", 15), Brushes.White, New Point(400, 3))
+        End Using
+    End Sub
+
+
 End Class

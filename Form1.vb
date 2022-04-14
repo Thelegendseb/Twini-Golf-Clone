@@ -54,24 +54,32 @@
 
         My.Computer.Audio.Play(My.Resources.charge, AudioPlayMode.Background)
 
-        CurrentSession.MouseOperations.Clicked(e)
+        CurrentSession.MouseOperations.Clicked()
 
         MouseHeld.Interval = 20
         MouseHeld.Start()
     End Sub
     Private Sub Holding(sender As Object, e As EventArgs) Handles MouseHeld.Tick
-        'Held
+        Dim xdiff As Integer = Cursor.Current.Position.X - CurrentSession.MouseOperations.StartPos.X
+        Dim ydiff As Integer = Cursor.Current.Position.Y - CurrentSession.MouseOperations.StartPos.Y
+        CurrentSession.Xoffset = xdiff
+        CurrentSession.Yoffset = ydiff
+        If xdiff < 0 Then xdiff += -(xdiff * 2)
+        If ydiff < 0 Then ydiff += -(ydiff * 2)
+        CurrentSession.Power = xdiff + ydiff
     End Sub
     Private Sub Screen_MouseUp(sender As Object, e As MouseEventArgs) Handles Screen.MouseUp
         MouseHeld.Stop()
+        CurrentSession.CurrentLevel.StrokeCount += 1
         My.Computer.Audio.Play(My.Resources.swing, AudioPlayMode.Background)
 
-        CurrentSession.MouseOperations.Lifted(e)
+        CurrentSession.MouseOperations.Lifted()
 
         CurrentSession.Ball1.SetVector(CurrentSession.MouseOperations.StartPos,
                                        CurrentSession.MouseOperations.EndPos)
         CurrentSession.Ball2.SetVector(CurrentSession.MouseOperations.StartPos,
                                CurrentSession.MouseOperations.EndPos)
+        CurrentSession.Power = 0
     End Sub
 
     Private Sub Form1_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd

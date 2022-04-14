@@ -5,6 +5,7 @@
     Public Hole1, Hole2 As Point
     Public Hole1Status, Hole2Status As Boolean
     Public Start1, Start2 As Point
+    Public StrokeCount As Integer
 
     Public Blocks As New List(Of Rectangle)
 
@@ -42,7 +43,7 @@
 
         ResetMe()
         GameGraphics.DrawBackground(Levelbg)
-        x = 2
+
         Select Case x
             Case 1
                 Me.Hole1 = New Point(160 - (Ball.Size / 2), 150)
@@ -69,6 +70,7 @@
                 Me.Assign(5, 16, "L", 32)
                 Me.Assign(6, 17, "L", 32)
             Case 3
+
             Case 4
             Case 5
             Case 6
@@ -91,6 +93,7 @@
         Start1 = Nothing
         Start2 = Nothing
         CellStatus = New Byte(19, 14) {}
+        StrokeCount = 0
     End Sub
 
 End Class
