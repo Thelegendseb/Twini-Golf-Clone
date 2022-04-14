@@ -7,19 +7,15 @@
 
     Public Shared Function IsHit(x As Integer, y As Integer, L As Level) As Boolean
 
-        If L.CellStatus.GetLength(0) - 1 < (Math.Round(y / Imps.yinc)) Then
-            Return False
-        End If
-        If L.CellStatus.GetLength(1) - 1 < (Math.Round(x / Imps.xinc)) Then
-            Return False
-        End If
+        Dim PredictedRect As Rectangle = New Rectangle(x - CSng(Ball.Size / 2), y - CSng(Ball.Size / 2),
+                                                       Ball.Size, Ball.Size)
 
-
-        If L.CellStatus(Math.Round(y / Imps.yinc), Math.Round(x / Imps.xinc)) <> 0 Then
-            Return True
-        End If
+        For Each Block In L.Blocks
+            If PredictedRect.IntersectsWith(Block) Then
+                Return True
+            End If
+        Next
         Return False
-
     End Function
 
 End Class

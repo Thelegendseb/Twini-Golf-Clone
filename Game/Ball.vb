@@ -32,6 +32,14 @@
         dy = 0
     End Sub
 
+    Public Function IsStationary() As Boolean
+        If dx = 0 And dy = 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
     Public Function GetBounds() As Rectangle
         Return New Rectangle(x - Size / 2, y - Size / 2, Size, Size)
     End Function

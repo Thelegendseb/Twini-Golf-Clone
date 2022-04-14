@@ -4,7 +4,7 @@
 
     Public MouseOperations As MouseOps
 
-    Public CurrentLevel As New Level
+    Public CurrentLevel As Level
     Public CurrentLevelCount As Integer = 1
 
     Public Ball1 As Ball
@@ -13,7 +13,7 @@
     Sub New(CtrlSize As Size)
         MyGraphics = New GameGraphics(CtrlSize)
         MouseOperations = New MouseOps()
-
+        CurrentLevel = New Level(CtrlSize)
         LoadLevel(CurrentLevelCount)
         BallInits(CtrlSize)
     End Sub
@@ -27,13 +27,14 @@
             LoadLevel(CurrentLevelCount)
         End If
     End Sub
-
     Public Sub UpdateBalls()
-        If CurrentLevel.Hole1Status = False Then
-            Ball1.Update(CurrentLevel)
-        End If
-        If CurrentLevel.Hole2Status = False Then
-            Ball2.Update(CurrentLevel)
+        If Ball1.IsStationary = False Then
+            If CurrentLevel.Hole1Status = False Then
+                Ball1.Update(CurrentLevel)
+            End If
+            If CurrentLevel.Hole2Status = False Then
+                Ball2.Update(CurrentLevel)
+            End If
         End If
     End Sub
 
@@ -58,13 +59,14 @@
         CurrentLevel.Load(Level)
     End Sub
     Public Sub Drawings()
-        MyGraphics.DrawBackground()
-        MyGraphics.DrawLevel(CurrentLevel)
+
+        GameGraphics.AddLevelbg(CurrentLevel.Levelbg, MyGraphics.Canvas)
+
         If CurrentLevel.Hole1Status = False Then
-            MyGraphics.DrawBall(Ball1)
+            MyGraphics.DrawBall(MyGraphics.Canvas, Ball1)
         End If
         If CurrentLevel.Hole2Status = False Then
-            MyGraphics.DrawBall(Ball2)
+            MyGraphics.DrawBall(MyGraphics.Canvas, Ball2)
         End If
     End Sub
 

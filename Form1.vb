@@ -8,7 +8,6 @@
     Public CurrentSession As Session
     Private Sub Updates()
         CurrentSession.Update()
-
         Render()
     End Sub
 
@@ -45,6 +44,7 @@
         Updates()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text = "Twini-Golf!"
         ScreenInit()
         SessionInit()
         TInit()
