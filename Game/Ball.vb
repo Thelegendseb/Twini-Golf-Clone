@@ -32,6 +32,11 @@
         dy = 0
     End Sub
 
+    Public Function GetBounds() As Rectangle
+        Return New Rectangle(x - Size / 2, y - Size / 2, Size, Size)
+    End Function
+
+
     Public Sub SetVector(P1 As Point, P2 As Point)
         dx = -(P2.X - P1.X) / Mass
         dy = -(P2.Y - P1.Y) / Mass
@@ -39,7 +44,7 @@
 
     Public Sub Bounce(L As Level)
 
-
+        'WALL BOUNCES
         If x - (Size / 2) < Container.X Then
             x = Container.X + Size
             dx *= -1
@@ -54,6 +59,16 @@
             y = Container.Y + Container.Height - Size
             dy *= -1
         End If
+
+        'CELL BOUNCES
+        If Imps.IsHit(Me.x + Me.dx, Me.y, L) = True Then
+            dx *= -1
+        End If
+        If Imps.IsHit(Me.x, Me.y + Me.dy, L) = True Then
+            dy *= -1
+        End If
+
+
     End Sub
 
 End Class

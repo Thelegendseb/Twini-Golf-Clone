@@ -83,6 +83,7 @@
     <Compile Include="Game\Ball.vb" />
     <Compile Include="Game\GameGraphics.vb" />
     <Compile Include="Game\Level.vb" />
+    <Compile Include="Misc\Imps.vb" />
     <Compile Include="Misc\MouseOps.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

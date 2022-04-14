@@ -11,21 +11,20 @@
         End Using
     End Sub
     Public Sub DrawTile(Size As Integer, Shade As Char, P As Point)
-        P.Y -= 14
-        P.X -= 4
+
         Using g As Graphics = Graphics.FromImage(Canvas)
             Select Case Size
                 Case 32
                     If Shade = "L" Then
-                        g.DrawImage(My.Resources.tile32_light, P.X, P.Y, 32, 32)
+                        g.DrawImage(My.Resources.tile32_light, P.X, P.Y, 32 - 1, 32 - 1)
                     ElseIf Shade = "D" Then
-                        g.DrawImage(My.Resources.tile32_dark, P.X, P.Y, 32, 32)
+                        g.DrawImage(My.Resources.tile32_dark, P.X, P.Y, 32 - 1, 32 - 1)
                     End If
                 Case 64
                     If Shade = "L" Then
-                        g.DrawImage(My.Resources.tile32_light, P.X, P.Y, 64, 64)
+                        g.DrawImage(My.Resources.tile64_light, P.X, P.Y, 64 - 1, 64 - 1)
                     ElseIf Shade = "D" Then
-                        g.DrawImage(My.Resources.tile32_dark, P.X, P.Y, 64, 64)
+                        g.DrawImage(My.Resources.tile64_dark, P.X, P.Y, 64 - 1, 64 - 1)
                     End If
                 Case Else
             End Select
@@ -37,10 +36,14 @@
         For i = 0 To L.CellStatus.GetLength(0) - 1
             For j = 0 To L.CellStatus.GetLength(1) - 1
 
-                If L.CellStatus(i, j) = 3 Then
-                    DrawTile(32, "L", New Point(i * 32, j * 32))
+                If L.CellStatus(i, j) = 2 Then
+                    DrawTile(32, "L", New Point(i * Imps.xinc, j * Imps.yinc))
+                ElseIf L.CellStatus(i, j) = 3 Then
+                    DrawTile(32, "D", New Point(i * Imps.xinc, j * Imps.yinc))
                 ElseIf L.CellStatus(i, j) = 4 Then
-                    DrawTile(32, "D", New Point(i * 32, j * 32))
+                    DrawTile(64, "L", New Point(i * Imps.xinc, j * Imps.yinc))
+                ElseIf L.CellStatus(i, j) = 5 Then
+                    DrawTile(64, "D", New Point(i * Imps.xinc, j * Imps.yinc))
                 End If
 
             Next
@@ -48,15 +51,10 @@
 
         DrawHoles(L)
     End Sub
-
-    Public Sub Balls(Ball1 As Ball, Ball2 As Ball)
-        DrawBall(Ball1)
-        DrawBall(Ball2)
-    End Sub
     Private Sub DrawHoles(L As Level)
         Using g As Graphics = Graphics.FromImage(Canvas)
-            g.FillEllipse(Brushes.Black, L.Hole1.X - 8, L.Hole1.Y - 8, 16, 16)
-            g.FillEllipse(Brushes.Black, L.Hole2.X - 8, L.Hole2.Y - 8, 16, 16)
+            g.FillEllipse(Brushes.Black, L.Hole1.X - CSng(Imps.HoleSize / 2), L.Hole1.Y - CSng(Imps.HoleSize / 2), Imps.HoleSize, Imps.HoleSize)
+            g.FillEllipse(Brushes.Black, L.Hole2.X - CSng(Imps.HoleSize / 2), L.Hole2.Y - CSng(Imps.HoleSize / 2), Imps.HoleSize, Imps.HoleSize)
         End Using
     End Sub
 
